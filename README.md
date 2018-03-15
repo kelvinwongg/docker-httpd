@@ -24,9 +24,20 @@ This Docker container makes it easy to get an instance of Apache up and running.
 Based on [Official Apache Docker Image](https://hub.docker.com/_/httpd/) with some minor hack:
 
 -   Handle `ENTRYPOINT` with [dumb-init](https://github.com/Yelp/dumb-init)
--   Simulate Debian style Apache configuration
 -   Change `User` and `Group` to `www-data`
 -   Change `DocumentRoot` to `/var/www/html`
+-   Additional Apache modules:
+    -   actions
+    -   deflate
+    -   expires
+    -   logio
+    -   mime\_magic
+    -   negotiation
+    -   proxy
+    -   proxy\_fcgi
+    -   proxy\_http
+    -   remoteip
+    -   rewrite
 
 ### Quick Start
 
