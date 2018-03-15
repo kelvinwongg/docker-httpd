@@ -1,0 +1,60 @@
+diff -urp a/usr/local/apache2/conf/httpd.conf b/usr/local/apache2/conf/httpd.conf
+--- a/usr/local/apache2/conf/httpd.conf	2018-03-14 13:15:46.000000000 +0800
++++ b/usr/local/apache2/conf/httpd.conf	2018-03-15 11:55:29.785043875 +0800
+@@ -203,8 +203,8 @@ LoadModule alias_module modules/mod_alia
+ # It is usually good practice to create a dedicated user and group for
+ # running httpd, as with most system services.
+ #
+-User daemon
+-Group daemon
++User www-data
++Group www-data
+ 
+ </IfModule>
+ 
+@@ -258,8 +258,8 @@ ServerAdmin you@example.com
+ # documents. By default, all requests are taken from this directory, but
+ # symbolic links and aliases may be used to point to other locations.
+ #
+-DocumentRoot "/usr/local/apache2/htdocs"
+-<Directory "/usr/local/apache2/htdocs">
++DocumentRoot "/var/www/html"
++<Directory "/var/www/html">
+     #
+     # Possible values for the Options directive are "None", "All",
+     # or any combination of:
+@@ -279,7 +279,7 @@ DocumentRoot "/usr/local/apache2/htdocs"
+     # It can be "All", "None", or any combination of the keywords:
+     #   AllowOverride FileInfo AuthConfig Limit
+     #
+-    AllowOverride None
++    AllowOverride All
+ 
+     #
+     # Controls who can get stuff from this server.
+@@ -529,9 +529,9 @@ LogLevel warn
+ #Include conf/extra/httpd-default.conf
+ 
+ # Configure mod_proxy_html to understand HTML4/XHTML1
+-<IfModule proxy_html_module>
+-Include conf/extra/proxy-html.conf
+-</IfModule>
++#<IfModule proxy_html_module>
++#Include conf/extra/proxy-html.conf
++#</IfModule>
+ 
+ # Secure (SSL/TLS) connections
+ #Include conf/extra/httpd-ssl.conf
+@@ -545,3 +545,12 @@ SSLRandomSeed startup builtin
+ SSLRandomSeed connect builtin
+ </IfModule>
+ 
++# Include module configuration:
++IncludeOptional conf/mods-enabled/*.load
++IncludeOptional conf/mods-enabled/*.conf
++
++# Include generic snippets of statements
++IncludeOptional conf/conf-enabled/*.conf
++
++# Include the virtual host configurations:
++IncludeOptional conf/sites-enabled/*.conf
