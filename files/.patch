@@ -1,6 +1,6 @@
 diff -urp a/usr/local/apache2/conf/httpd.conf b/usr/local/apache2/conf/httpd.conf
---- a/usr/local/apache2/conf/httpd.conf	2018-03-14 13:15:46.000000000 +0800
-+++ b/usr/local/apache2/conf/httpd.conf	2018-03-15 14:26:29.387912333 +0800
+--- a/usr/local/apache2/conf/httpd.conf	2018-03-23 05:10:25.000000000 +0800
++++ b/usr/local/apache2/conf/httpd.conf	2018-03-31 22:27:14.588736809 +0800
 @@ -116,7 +116,7 @@ LoadModule filter_module modules/mod_fil
  #LoadModule substitute_module modules/mod_substitute.so
  #LoadModule sed_module modules/mod_sed.so
@@ -40,9 +40,9 @@ diff -urp a/usr/local/apache2/conf/httpd.conf b/usr/local/apache2/conf/httpd.con
 +LoadModule proxy_http_module modules/mod_proxy_http.so
 +LoadModule proxy_fcgi_module modules/mod_proxy_fcgi.so
  #LoadModule proxy_scgi_module modules/mod_proxy_scgi.so
+ #LoadModule proxy_uwsgi_module modules/mod_proxy_uwsgi.so
  #LoadModule proxy_fdpass_module modules/mod_proxy_fdpass.so
- #LoadModule proxy_wstunnel_module modules/mod_proxy_wstunnel.so
-@@ -185,14 +185,14 @@ LoadModule autoindex_module modules/mod_
+@@ -186,14 +186,14 @@ LoadModule autoindex_module modules/mod_
  #LoadModule dav_fs_module modules/mod_dav_fs.so
  #LoadModule dav_lock_module modules/mod_dav_lock.so
  #LoadModule vhost_alias_module modules/mod_vhost_alias.so
@@ -60,7 +60,7 @@ diff -urp a/usr/local/apache2/conf/httpd.conf b/usr/local/apache2/conf/httpd.con
  
  <IfModule unixd_module>
  #
-@@ -203,8 +203,8 @@ LoadModule alias_module modules/mod_alia
+@@ -204,8 +204,8 @@ LoadModule alias_module modules/mod_alia
  # It is usually good practice to create a dedicated user and group for
  # running httpd, as with most system services.
  #
@@ -71,7 +71,7 @@ diff -urp a/usr/local/apache2/conf/httpd.conf b/usr/local/apache2/conf/httpd.con
  
  </IfModule>
  
-@@ -258,8 +258,8 @@ ServerAdmin you@example.com
+@@ -259,8 +259,8 @@ ServerAdmin you@example.com
  # documents. By default, all requests are taken from this directory, but
  # symbolic links and aliases may be used to point to other locations.
  #
@@ -82,7 +82,7 @@ diff -urp a/usr/local/apache2/conf/httpd.conf b/usr/local/apache2/conf/httpd.con
      #
      # Possible values for the Options directive are "None", "All",
      # or any combination of:
-@@ -279,7 +279,7 @@ DocumentRoot "/usr/local/apache2/htdocs"
+@@ -280,7 +280,7 @@ DocumentRoot "/usr/local/apache2/htdocs"
      # It can be "All", "None", or any combination of the keywords:
      #   AllowOverride FileInfo AuthConfig Limit
      #
@@ -91,7 +91,7 @@ diff -urp a/usr/local/apache2/conf/httpd.conf b/usr/local/apache2/conf/httpd.con
  
      #
      # Controls who can get stuff from this server.
-@@ -459,7 +459,7 @@ LogLevel warn
+@@ -460,7 +460,7 @@ LogLevel warn
  # contents of the file itself to determine its type.  The MIMEMagicFile
  # directive tells the module where the hint definitions are located.
  #
@@ -100,7 +100,18 @@ diff -urp a/usr/local/apache2/conf/httpd.conf b/usr/local/apache2/conf/httpd.con
  
  #
  # Customizable error responses come in three flavors:
-@@ -545,3 +545,25 @@ SSLRandomSeed startup builtin
+@@ -530,9 +530,7 @@ LogLevel warn
+ #Include conf/extra/httpd-default.conf
+ 
+ # Configure mod_proxy_html to understand HTML4/XHTML1
+-<IfModule proxy_html_module>
+-Include conf/extra/proxy-html.conf
+-</IfModule>
++#Include conf/extra/proxy-html.conf
+ 
+ # Secure (SSL/TLS) connections
+ #Include conf/extra/httpd-ssl.conf
+@@ -546,3 +544,27 @@ SSLRandomSeed startup builtin
  SSLRandomSeed connect builtin
  </IfModule>
  
@@ -126,3 +137,5 @@ diff -urp a/usr/local/apache2/conf/httpd.conf b/usr/local/apache2/conf/httpd.con
 +RemoteIPInternalProxy 192.168.0.0/16
 +RemoteIPInternalProxy 127.0.0.1
 +</IfModule>
++
++IncludeOptional conf/extra/*.conf
