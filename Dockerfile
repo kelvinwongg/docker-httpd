@@ -14,6 +14,11 @@
 
 FROM httpd:2.4
 
+VOLUME  /var/www/html
+WORKDIR /var/www/html
+
+EXPOSE 80
+
 ENTRYPOINT [ "/usr/local/bin/dumb-init", "--" ]
 CMD        [ "/usr/local/apache2/bin/httpd", "-DFOREGROUND" ]
 
@@ -34,3 +39,11 @@ COPY files /
 # Apply patches
 RUN set -ex \
     && patch -d/ -p1 < /.patch
+
+# Ensure required folders exist with correct owner:group
+RUN set -ex \
+    && rm -rf /usr/local/apache2/conf/extra/*.conf \
+    && mkdir -p /var/www/html \
+    && chown -Rf www-data:www-data /var/www/html \
+    && chmod 0755 /var/www/html
+
