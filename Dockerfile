@@ -19,7 +19,7 @@ WORKDIR /var/www/html
 
 EXPOSE 80
 
-ENTRYPOINT [ "/usr/local/bin/dumb-init", "--" ]
+ENTRYPOINT [ "dumb-init", "--" ]
 CMD        [ "/usr/local/apache2/bin/httpd", "-DFOREGROUND" ]
 
 # Prepare APT depedencies
