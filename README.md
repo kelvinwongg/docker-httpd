@@ -28,6 +28,8 @@ Based on [Official Apache Docker Image](https://hub.docker.com/_/httpd/) with so
 -   Change `DocumentRoot` to `/var/www/html`
 -   Additional Apache modules:
     -   actions
+    -   cache
+    -   cache\_disk
     -   deflate
     -   expires
     -   logio
